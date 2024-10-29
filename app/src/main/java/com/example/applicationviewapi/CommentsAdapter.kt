@@ -8,27 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CommentsAdapter(private val comments: List<Comment>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
 
-    inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-        private val emailTextView: TextView = itemView.findViewById(R.id.emailTextView)
-        private val bodyTextView: TextView = itemView.findViewById(R.id.bodyTextView)
-
-        fun bind(comment: Comment) {
-            nameTextView.text = comment.name
-            emailTextView.text = comment.email
-            bodyTextView.text = comment.body
-        }
+    class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val name: TextView = itemView.findViewById(R.id.commentName)
+        val body: TextView = itemView.findViewById(R.id.commentBody)
+        val email: TextView = itemView.findViewById(R.id.commentEmail)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
-        return CommentViewHolder(view)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
+        return CommentViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(comments[position])
+        val currentComment = comments[position]
+        holder.name.text = currentComment.name
+        holder.body.text = currentComment.body
+        holder.email.text = currentComment.email
     }
 
     override fun getItemCount() = comments.size
 }
-
